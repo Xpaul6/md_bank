@@ -1,6 +1,3 @@
-// import { marked } from '../../thirdparty/marked.esm.js';
-// import hljs from '../../thirdparty/highlight.min.js';
-// import katex from '../../thirdparty/katex.mjs';
 import { marked } from 'https://cdn.jsdelivr.net/npm/marked@12.0.2/lib/marked.esm.js';
 import hljs from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/es/highlight.min.js';
 import katex from 'https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.mjs';
@@ -105,7 +102,7 @@ const applyStyles = () => {
 }
 
 // Функция рендера
-export async function renderObsidianMarkdown(markdownText, containerElement) {
+export function renderObsidianMarkdown(markdownText) {
   const latexBlocks = [];
 
   // Используем HTML-комментарии как "невидимые" плейсхолдеры
@@ -141,8 +138,8 @@ export async function renderObsidianMarkdown(markdownText, containerElement) {
     }
   });
 
-  containerElement.innerHTML = html;
-
   applyStyles();
+
+  return html;
 }
 
