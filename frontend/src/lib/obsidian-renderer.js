@@ -102,7 +102,7 @@ const applyStyles = () => {
     link.href = 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/default.min.css';
     document.head.appendChild(link);
   }
-} 
+}
 
 // Функция рендера
 export async function renderObsidianMarkdown(markdownText, containerElement) {

@@ -13,16 +13,16 @@
     renderObsidianMarkdown(fileContent, document.getElementById("content"));
   }
 
-	$effect.pre(() => {
-		tick().then(() => {
+  $effect.pre(() => {
+    tick().then(() => {
       render();
-		});
-	});
+    });
+  });
 </script>
 
 <div>
   <button onclick={() => handleBack()}>Go back</button>
   <h1>{fileName}</h1>
-  <hr>
+  <hr />
   <div id="content">Loading...</div>
 </div>

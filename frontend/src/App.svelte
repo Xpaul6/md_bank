@@ -1,24 +1,6 @@
 <script lang="ts">
   import FileRenderer from "./components/FileRenderer.svelte";
 
-  function applyStyles() {
-    if (!document.getElementById('katex-styles')) {
-      const link = document.createElement('link');
-      link.id = 'katex-styles';
-      link.rel = 'stylesheet';
-      link.href = 'https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css';
-      document.head.appendChild(link);
-    }
-
-    if (!document.getElementById('hljs-styles')) {
-      const link = document.createElement('link');
-      link.id = 'hljs-styles';
-      link.rel = 'stylesheet';
-      link.href = 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/default.min.css';
-      document.head.appendChild(link);
-    }
-  } 
-
   let isFileOpened = $state<Boolean>(false);
   let filesList = $state<Array<String>>([]);
   let fileName = $state<string>("");
@@ -44,7 +26,7 @@
 
   async function getFiles() {
     try {
-      const response = await fetch('/api/files');
+      const response = await fetch("/api/files");
       if (!response.ok) throw new Error("Files request error");
       const data = await response.json();
       filesList = data;
@@ -53,13 +35,12 @@
     }
   }
 
-  // applyStyles();
   getFiles();
 </script>
 
 <svelte:head>
   <title>MD Bank</title>
-  <!-- <link rel="icon" type="image" href="/gnome.png" /> -->
+  <link rel="icon" type="image" href="/paper.png" />
 </svelte:head>
 
 <main class="m-15">
@@ -67,10 +48,16 @@
     <h1>Select file</h1>
     <ul>
       {#each filesList as file}
-        <li><button onclick={()=>{handleFileSelect(file.toString())}}>{file}</button></li> 
+        <li>
+          <button
+            onclick={() => {
+              handleFileSelect(file.toString());
+            }}>{file}</button
+          >
+        </li>
       {/each}
     </ul>
   {:else}
-    <FileRenderer fileName={fileName} fileContent={fileContent} bind:isFileOpened={isFileOpened}/>
+    <FileRenderer {fileName} {fileContent} bind:isFileOpened />
   {/if}
 </main>
