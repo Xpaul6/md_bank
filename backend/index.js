@@ -2,6 +2,7 @@ import express from 'express';
 import swaggerUi from 'swagger-ui-express';
 import swaggerJsDoc from 'swagger-jsdoc';
 import fs from 'fs';
+import path from 'path';
 
 const app = express();
 const PORT = 8080;
@@ -89,15 +90,21 @@ app.get('/read-file', (req, res) => {
     return res.status(400).send('Bad Request. Missing fileName query parameter.');
   }
 
+  const contentDir = path.resolve(process.cwd(), 'content');
+  const requestedFilePath = path.join(contentDir, fileName);
+  if (!requestedFilePath.startsWith(contentDir)) {
+    return res.status(403).send('Forbidden: Access denied');
+  }
+
   try {
-    const fileContent = fs.readFileSync(`./content/${fileName}`, 'utf8');
+    const fileContent = fs.readFileSync(requestedFilePath, 'utf8');
     res.setHeader('Content-Type', 'text/plain');
     res.status(200).send(fileContent);
   } catch (e) {
     if (e.code === 'ENOENT') {
       return res.status(404).send('File not found.');
     }
-    return res.status(500).send('Internal Server Error.');
+    return res.status(500).send(`Internal Server Error: ${e}`);
   }
 })
 
