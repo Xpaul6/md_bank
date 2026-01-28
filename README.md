@@ -6,5 +6,5 @@ with anybody or just have a little remote storage for yourself.
 ## TODO
 - [x] Backend file access safety
 - [ ] Accessing files from a specific place on the server (not from the container itself)
-- [ ] Flexible networking (enviroment configs)
+- [x] Flexible networking (enviroment configs)
 - [ ] \*UI/UX improvements

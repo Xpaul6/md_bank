@@ -1,8 +1,9 @@
 services:
   frontend:
     build: ./frontend
+    env_file: ./.env
     ports:
-      - "5555:5555"    # Host:Container
+      - "${FRONTEND_PORT}:5555"
     depends_on:
       - backend
     networks:
@@ -10,8 +11,9 @@ services:
 
   backend:
     build: ./backend
+    env_file: ./.env
     ports:
-      - "8080:8080"
+      - "${BACKEND_PORT}:8080"
     environment:
       - NODE_ENV=production
     networks:

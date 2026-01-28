@@ -4,8 +4,9 @@ import swaggerJsDoc from 'swagger-jsdoc';
 import fs from 'fs';
 import path from 'path';
 
+
 const app = express();
-const PORT = 8080;
+const PORT = "8080";
 
 // Swagger
 const swaggerOptions = {
@@ -18,7 +19,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: 'http://localhost:8080',
+        url: `http://localhost:${PORT}`,
       },
     ],
   },
