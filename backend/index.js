@@ -23,7 +23,7 @@ const swaggerOptions = {
     ],
   },
   apis: ['./index.js'],
-}
+};
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
@@ -53,7 +53,7 @@ app.get('/files', (_, res) => {
     let files = fs.readdirSync('./content/');
     return res.status(200).send(files);
   } catch (e) {
-    return res.status(500).send(`Internal server error: ${e}`)
+    return res.status(500).send(`Internal server error: ${e}`);
   }
 });
 
@@ -106,9 +106,9 @@ app.get('/read-file', (req, res) => {
     }
     return res.status(500).send(`Internal Server Error: ${e}`);
   }
-})
+});
 
 // Server
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
-})
+});
