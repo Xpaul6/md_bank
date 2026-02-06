@@ -26,12 +26,8 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 app.get('/server-status', (_, res) => { return res.send('Server is up!') });
 
 app.get('/files', (_, res) => {
-  try {
-    let files = fs.readdirSync('./content/');
-    return res.status(200).send(files);
-  } catch (e) {
-    return res.status(500).send(`Internal server error: ${e}`);
-  }
+  let files = fs.readdirSync('./content/');
+  return res.status(200).send(files);
 });
 
 app.get('/read-file', (req, res) => {
@@ -47,16 +43,18 @@ app.get('/read-file', (req, res) => {
     return res.status(403).send('Forbidden: Access denied');
   }
 
-  try {
-    const fileContent = fs.readFileSync(requestedFilePath, 'utf8');
-    res.setHeader('Content-Type', 'text/plain');
-    res.status(200).send(fileContent);
-  } catch (e) {
-    if (e.code === 'ENOENT') {
-      return res.status(404).send('File not found.');
-    }
-    return res.status(500).send(`Internal Server Error: ${e}`);
+  const fileContent = fs.readFileSync(requestedFilePath, 'utf8');
+  res.setHeader('Content-Type', 'text/plain');
+  res.status(200).send(fileContent);
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.log(err);
+  if (err.code === 'ENOENT') {
+    return res.status(404).send('File not found');
   }
+  return res.status(500).send(`Internal server error: ${err}`);
 });
 
 // Server
