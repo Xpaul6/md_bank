@@ -16,4 +16,6 @@
   <h1>{fileName}</h1>
   <hr />
   <div>{@html dispayedContent}</div>
+  <hr />
+  <button onclick={() => handleGoBack()}>Go back</button>
 </div>
