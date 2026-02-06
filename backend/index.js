@@ -10,8 +10,8 @@ const PORT = 8080;
 // Swagger
 const swaggerOptions = {
   info: {
-    title: 'Dashboard API',
-    description: 'Homelab dashboard API',
+    title: 'MD Bank Backend API',
+    description: 'API for accessing md files from the server',
   },
   host: `localhost:${PORT}`
 };

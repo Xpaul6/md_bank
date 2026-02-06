@@ -1,8 +1,8 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Dashboard API",
-    "description": "Homelab dashboard API",
+    "title": "MD Bank Backend API",
+    "description": "API for accessing md files from the server",
     "version": "1.0.0"
   },
   "host": "localhost:8080",
