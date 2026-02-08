@@ -22,14 +22,16 @@ swaggerAutogen()(outputFile, routes, swaggerOptions);
 const swaggerFile = JSON.parse(fs.readFileSync('./swagger-output.json'));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
+// API constants
+const CONTENT_DIR = path.resolve(process.cwd(), 'content');
+
 // Routes
 app.get('/server-status', (_, res) => { return res.send('Server is up!') });
 
 app.get('/files', (_, res) => {
-  const dir = './content/';
-  let files = fs.readdirSync(dir);
+  const files = fs.readdirSync(CONTENT_DIR);
   files.sort((a, b) => {
-    return fs.statSync(dir + a).mtime.getTime() - fs.statSync(dir + b).mtime.getTime();
+    return fs.statSync(path.join(CONTENT_DIR, a)).mtime.getTime() - fs.statSync(path.join(CONTENT_DIR, b)).mtime.getTime();
   });
   return res.status(200).send(files);
 });
@@ -41,9 +43,8 @@ app.get('/read-file', (req, res) => {
     return res.status(400).send('Bad Request. Missing fileName query parameter.');
   }
 
-  const contentDir = path.resolve(process.cwd(), 'content');
-  const requestedFilePath = path.join(contentDir, fileName);
-  if (!requestedFilePath.startsWith(contentDir)) {
+  const requestedFilePath = path.join(CONTENT_DIR, fileName);
+  if (!requestedFilePath.startsWith(CONTENT_DIR)) {
     return res.status(403).send('Forbidden: Access denied');
   }
 
