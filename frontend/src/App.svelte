@@ -55,6 +55,8 @@
             }}>{file}</button
           >
         </li>
+      {:else}
+        <p class="warning">No files found</p>
       {/each}
     </ul>
   {:else}

@@ -54,3 +54,7 @@ button:hover {
   border-color: #606060;
 }
 
+.warning {
+  color: #882222;
+  font-size: large;
+}
