@@ -26,7 +26,11 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 app.get('/server-status', (_, res) => { return res.send('Server is up!') });
 
 app.get('/files', (_, res) => {
-  let files = fs.readdirSync('./content/');
+  const dir = './content/';
+  let files = fs.readdirSync(dir);
+  files.sort((a, b) => {
+    return fs.statSync(dir + a).mtime.getTime() - fs.statSync(dir + b).mtime.getTime();
+  });
   return res.status(200).send(files);
 });
 
