@@ -2,33 +2,36 @@
   import FileRenderer from "./components/FileRenderer.svelte";
 
   let isFileOpened = $state<Boolean>(false);
-  let filesList = $state<Array<String>>([]);
+  let filesList = $state<Array<string>>([]);
   let fileName = $state<string>("");
   let fileContent = $state<string>("");
 
-  async function loadFile(filename: string) {
+  async function loadFile(filename: string): Promise<void> {
     try {
       const response = await fetch(`/api/read-file?fileName=${filename}`);
       if (!response.ok) throw new Error("Readfile request error");
-      const data = await response.text();
+      const data: string = await response.text();
       fileContent = data;
     } catch (err) {
       console.log(err);
     }
   }
 
-  async function handleFileSelect(filename: string) {
-    loadFile(filename).then(() => {
+  async function handleFileSelect(filename: string): Promise<void> {
+    try {
+      await loadFile(filename);
       fileName = filename;
       isFileOpened = true;
-    });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
-  async function getFiles() {
+  async function getFiles(): Promise<void> {
     try {
       const response = await fetch("/api/files");
       if (!response.ok) throw new Error("Files request error");
-      const data = await response.json();
+      const data: Array<string> = await response.json();
       filesList = data;
     } catch (err) {
       console.log(err);
