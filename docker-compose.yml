@@ -14,6 +14,8 @@ services:
     env_file: ./.env
     ports:
       - "${BACKEND_PORT}:8080"
+    volumes:
+      - ${CONTENT_PATH}:/app/content
     environment:
       - NODE_ENV=production
     networks:
