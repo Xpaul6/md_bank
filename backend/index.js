@@ -31,7 +31,7 @@ app.get('/server-status', (_, res) => { return res.send('Server is up!') });
 app.get('/files', (_, res) => {
   const files = fs.readdirSync(CONTENT_DIR);
   files.sort((a, b) => {
-    return fs.statSync(path.join(CONTENT_DIR, a)).mtime.getTime() - fs.statSync(path.join(CONTENT_DIR, b)).mtime.getTime();
+    return fs.statSync(path.join(CONTENT_DIR, a)).birthtime.getTime() - fs.statSync(path.join(CONTENT_DIR, b)).birthtime.getTime();
   });
   return res.status(200).send(files);
 });
