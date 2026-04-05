@@ -5,6 +5,6 @@ The initial idea was to gain access to obsidian notes from any device. This way 
 with anybody or just have a little remote storage for yourself.
 ## TODO
 - [x] Backend file access safety
-- [ ] Accessing files from a specific place on the server (not from the container itself)
+- [x] Accessing files from a specific place on the server (not from the container itself)
 - [x] Flexible networking (enviroment configs)
 - [ ] \*UI/UX improvements
